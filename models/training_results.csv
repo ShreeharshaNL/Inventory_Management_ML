@@ -1,0 +1,51 @@
+product_id,product_name,xgb_mae,xgb_rmse,xgb_mape,xgb_status,winner
+1,Wireless Earbuds Pro #1,12.6896,16.8291,18.1514,success,xgboost
+2,Cotton Kurta Men's #2,18.6864,23.4397,34.8269,success,xgboost
+3,Basmati Rice 5kg #3,16.867,23.243,15.9649,success,xgboost
+4,Air Purifier HEPA #4,6.0993,8.2659,20.8553,success,xgboost
+5,Yoga Mat Premium 6mm #5,3.8153,4.7002,34.5268,success,xgboost
+6,Vitamin C Face Serum #6,14.2553,19.8053,15.9108,success,xgboost
+7,Smart Watch Series X #7,10.1928,13.0837,18.3847,success,xgboost
+8,Silk Saree Premium #8,12.1245,15.6893,30.2544,success,xgboost
+9,Cold Pressed Coconut Oil #9,20.7835,28.6452,14.7201,success,xgboost
+10,Water Purifier RO #10,6.2911,8.2138,19.948,success,xgboost
+11,Resistance Bands Set #11,4.4144,5.9175,25.5889,success,xgboost
+12,Sunscreen SPF 50 PA+++ #12,16.4643,22.0721,16.4379,success,xgboost
+13,Bluetooth Speaker Mini #13,9.3942,12.6329,17.5966,success,xgboost
+14,Denim Jeans Slim Fit #14,8.0365,10.3839,31.9925,success,xgboost
+15,Organic Honey 500g #15,31.3518,41.4763,17.8777,success,xgboost
+16,Non-Stick Cookware Set #16,5.6589,7.407,18.4054,success,xgboost
+17,Dumbbell Adjustable 20kg #17,7.3054,9.3705,25.8071,success,xgboost
+18,Hair Serum Repair #18,13.0259,16.9583,17.2094,success,xgboost
+19,USB-C Hub 7-in-1 #19,8.0436,10.7899,18.7918,success,xgboost
+20,Athletic T-Shirt Dry-Fit #20,9.82,12.4067,27.5218,success,xgboost
+21,Mixed Dry Fruits 250g #21,29.6416,39.8493,15.2442,success,xgboost
+22,Bedsheet Cotton 400TC #22,2.1148,2.8691,19.6249,success,xgboost
+23,Badminton Racket Pro #23,8.2546,10.8238,26.3757,success,xgboost
+24,Lipstick Matte Set #24,8.9961,12.5746,16.9772,success,xgboost
+25,Mechanical Keyboard RGB #25,9.5506,12.9113,16.4004,success,xgboost
+26,Woolen Jacket Winter #26,8.0504,10.6921,23.4886,success,xgboost
+27,Green Tea Premium 100 bags #27,28.2854,40.1797,14.5364,success,xgboost
+28,Vacuum Cleaner Robot #28,8.2549,10.6116,22.575,success,xgboost
+29,Cricket Bat Kashmir Willow #29,7.9888,10.8043,27.598,success,xgboost
+30,Face Wash Salicylic #30,15.9705,21.5902,16.9226,success,xgboost
+31,Gaming Mouse 12K DPI #31,5.1923,6.7792,17.3364,success,xgboost
+32,Casual Sneakers #32,13.0426,16.2363,28.18,success,xgboost
+33,Protein Powder Whey #33,13.7696,18.5915,16.0784,success,xgboost
+34,Coffee Maker Drip #34,6.8079,9.2578,19.0328,success,xgboost
+35,Running Shoes Cushion #35,9.4801,11.5921,34.9321,success,xgboost
+36,Moisturizer Hyaluronic #36,12.0096,16.2857,14.877,success,xgboost
+37,Webcam 4K Ultra #37,12.1926,16.8783,16.9854,success,xgboost
+38,Office Formal Shirt #38,16.1198,20.7227,29.1707,success,xgboost
+39,Dark Chocolate 70% #39,25.8921,35.8243,13.8781,success,xgboost
+40,Storage Bins Set 6 #40,6.6572,8.6146,23.9297,success,xgboost
+41,Cycling Helmet MTB #41,5.2945,6.7417,24.7791,success,xgboost
+42,Kajal Waterproof #42,17.7803,23.9278,18.3004,success,xgboost
+43,Power Bank 20000mAh #43,10.8454,15.2327,15.884,success,xgboost
+44,Leggings High-Waist #44,10.6749,13.7115,28.2693,success,xgboost
+45,Quinoa 1kg #45,22.2783,31.4216,15.7254,success,xgboost
+46,Curtains Blackout #46,7.5027,10.4596,19.8377,success,xgboost
+47,Swim Goggles Anti-Fog #47,7.3719,9.5388,25.4199,success,xgboost
+48,Shampoo Argan Oil 400ml #48,13.5611,18.7731,16.8153,success,xgboost
+49,LED Desk Lamp Smart #49,8.9143,12.0002,19.9419,success,xgboost
+50,Kids School Uniform #50,16.8912,23.3501,27.488,success,xgboost
