@@ -1,12 +1,20 @@
-# --- Python Specific ---
+# Byte-compiled / optimized files
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
-env/
+
+# Virtual environments
 venv/
+env/
+ENV/
 .venv/
+
+# Environment variables
+.env
+.env.*
+
+# Distribution / packaging
+.Python
 build/
 develop-eggs/
 dist/
@@ -18,28 +26,49 @@ lib64/
 parts/
 sdist/
 var/
-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 
-# --- FastAPI & Environment ---
-.env
-.flaskenv
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# PyCharm / VS Code
+.idea/
+.vscode/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
 *.log
 
-# --- Database (if using SQLite/Local DBs) ---
-*.db
+# SQLite database (optional)
 *.sqlite3
-
-# --- IDE Specific (Optional but Recommended) ---
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# --- Testing ---
-.pytest_cache/
-.tox/
-.coverage
-htmlcov/
+*.db
