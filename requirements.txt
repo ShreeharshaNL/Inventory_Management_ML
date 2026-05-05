@@ -25,7 +25,8 @@ fastapi==0.104.1
 uvicorn[standard]==0.24.0
 python-jose[cryptography]==3.3.0   # JWT
 passlib==1.7.4
-bcrypt==4.1.2          # password hashing
+bcrypt==4.0.1
+passlib[bcrypt]==1.7.4       # password hashing
 python-multipart==0.0.6
 apscheduler==3.10.4                # background job scheduler
 slowapi==0.1.9                     # rate limiting
