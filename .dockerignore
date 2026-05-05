@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+.env
+.git/
+node_modules/
+src/frontend/node_modules/
+models/*.joblib
+*.log
+.pytest_cache/

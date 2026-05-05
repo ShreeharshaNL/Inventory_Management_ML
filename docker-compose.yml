@@ -1,15 +1,12 @@
-version: "3.9"
-
 services:
 
-  # ── PostgreSQL Database ─────────────────────────────────────────────────────
   postgres:
     image: postgres:15-alpine
     container_name: inventory_postgres
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
-      POSTGRES_DB: ${POSTGRES_DB:-inventory_db}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: shnl2005
+      POSTGRES_DB: inventory_db
     ports:
       - "5432:5432"
     volumes:
@@ -19,19 +16,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    restart: unless-stopped
 
-  # ── FastAPI Backend ─────────────────────────────────────────────────────────
   api:
     build:
       context: .
       dockerfile: Dockerfile.api
     container_name: inventory_api
     environment:
-      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-password}@postgres:5432/inventory_db
-      SECRET_KEY: ${SECRET_KEY:-change-this-in-production}
+      DATABASE_URL: postgresql://postgres:shnl2005@postgres:5432/inventory_db
+      SECRET_KEY: change-this-in-production
       APP_ENV: production
       DEBUG: "false"
+      PYTHONPATH: /app
     ports:
       - "8000:8000"
     depends_on:
@@ -39,9 +35,7 @@ services:
         condition: service_healthy
     volumes:
       - models_data:/app/models
-    restart: unless-stopped
 
-  # ── React Frontend ──────────────────────────────────────────────────────────
   frontend:
     build:
       context: ./src/frontend
@@ -51,7 +45,6 @@ services:
       - "3000:80"
     depends_on:
       - api
-    restart: unless-stopped
 
 volumes:
   postgres_data:
