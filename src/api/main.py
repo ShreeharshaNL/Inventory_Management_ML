@@ -192,6 +192,8 @@ def update_stock(
     current_user: dict = Depends(get_current_user),
 ):
     """Manually update stock level for a product."""
+    from src.api.models import AlertLevel
+
     inventory = db.query(Inventory).filter(
         Inventory.product_id == update.product_id
     ).first()
@@ -200,10 +202,27 @@ def update_stock(
         raise HTTPException(status_code=404, detail="Inventory record not found")
 
     inventory.current_stock = update.new_stock
+
+    # Auto-recalculate alert level based on new stock
+    rop    = inventory.reorder_point or 0
+    safety = inventory.safety_stock or 0
+
+    if update.new_stock <= 0:
+        inventory.alert_level = AlertLevel.CRITICAL
+    elif update.new_stock <= safety:
+        inventory.alert_level = AlertLevel.HIGH
+    elif update.new_stock <= rop:
+        inventory.alert_level = AlertLevel.MEDIUM
+    else:
+        inventory.alert_level = AlertLevel.LOW
+
     db.commit()
-    return {"message": "Stock updated", "product_id": update.product_id, "new_stock": update.new_stock}
-
-
+    return {
+        "message": "Stock updated",
+        "product_id": update.product_id,
+        "new_stock": update.new_stock,
+        "alert_level": inventory.alert_level.value
+    }
 # ─── Analytics ────────────────────────────────────────────────────────────────
 
 @app.get("/api/analytics/trends", tags=["Analytics"])

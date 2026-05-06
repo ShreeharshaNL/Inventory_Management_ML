@@ -1,5 +1,5 @@
 product_id,product_name,current_stock,avg_daily_demand,days_remaining,reorder_point,safety_stock,eoq,alert_level,stockout_risk_pct,recommended_order_qty
-1,Wireless Earbuds Pro #1,2489,75.23,33.1,1196.94,143.7,45.07,low,0.0,45.07
+1,Wireless Earbuds Pro #1,0,75.23,0.0,1196.94,143.7,45.07,critical,100.0,45.07
 2,Cotton Kurta Men's #2,2953,77.86,37.9,515.91,126.6,93.86,low,0.0,93.86
 3,Basmati Rice 5kg #3,7390,109.93,67.2,1271.0,171.67,322.15,low,0.0,322.15
 4,Air Purifier HEPA #4,1526,33.83,45.1,395.52,57.23,66.7,low,0.0,66.7
