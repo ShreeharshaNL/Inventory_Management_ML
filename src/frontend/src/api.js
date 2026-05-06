@@ -1,7 +1,7 @@
 // src/frontend/src/api.js
 // Centralized API calls to FastAPI backend
 
-const BASE_URL = "https://inventory-api-uyqy.onrender.com/";
+const BASE_URL = "https://inventory-api-uyqy.onrender.com";
 
 async function request(path, token, options = {}) {
   const res = await fetch(`${BASE_URL}${path}`, {
