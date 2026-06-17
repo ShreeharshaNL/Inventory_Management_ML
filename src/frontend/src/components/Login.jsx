@@ -15,8 +15,8 @@ export default function Login({ onLogin }) {
     try {
       const data = await api.login(username, password);
       onLogin(data.access_token);
-    } catch {
-      setError("Invalid username or password");
+    } catch (err) {
+      setError(err.message || "Invalid username or password");
     } finally {
       setLoading(false);
     }

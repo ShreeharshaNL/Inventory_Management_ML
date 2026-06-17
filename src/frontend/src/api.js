@@ -1,7 +1,13 @@
 // src/frontend/src/api.js
 // Centralized API calls to FastAPI backend
 
-const BASE_URL = import.meta.env.VITE_API_URL || "https://inventory-api-uyqy.onrender.com";
+const DEFAULT_API_URL = "https://inventory-api-uyqy.onrender.com";
+const configuredApiUrl = import.meta.env.VITE_API_URL;
+const BASE_URL = configuredApiUrl && configuredApiUrl !== "https://inventory-api.onrender.com"
+  ? configuredApiUrl
+  : DEFAULT_API_URL;
+
+console.info("Inventory API URL:", BASE_URL);
 
 async function request(path, token, options = {}) {
   const res = await fetch(`${BASE_URL}${path}`, {
@@ -21,9 +27,21 @@ export const api = {
     const form = new URLSearchParams({ username, password });
     const res = await fetch(`${BASE_URL}/api/auth/login`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
       body: form,
     });
-    if (!res.ok) throw new Error("Invalid credentials");
+    if (!res.ok) {
+      let detail = "";
+      try {
+        const data = await res.json();
+        detail = data.detail ? `: ${data.detail}` : "";
+      } catch {
+        detail = `: ${await res.text()}`;
+      }
+      throw new Error(`Login failed (${res.status})${detail}`);
+    }
     return res.json();
   },
 
