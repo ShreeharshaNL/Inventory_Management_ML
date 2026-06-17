@@ -292,3 +292,88 @@ def get_kpis(
         "avg_forecast_mape": avg_mape,
         "stockout_risk_products": critical + high,
     }
+
+
+@app.post("/api/admin/seed-demo-data", tags=["Admin"])
+def seed_demo_data(
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
+    """
+    Populate a fresh database with demo data.
+
+    This is intended for Render/free database resets. It is protected by JWT
+    auth and only allows the demo admin user.
+    """
+    if current_user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    if db.query(Product).count() > 0:
+        return {
+            "message": "Database already has data. Seed skipped.",
+            "products": db.query(Product).count(),
+        }
+
+    from datetime import date, timedelta
+    from scripts.generate_data import seed_database
+    from src.ml.inventory_optimizer import InventoryOptimizer
+
+    logger.info("Seeding demo products, sales, and inventory...")
+    seed_database()
+
+    logger.info("Generating quick demo forecasts from recent demand...")
+    products = db.query(Product).filter(Product.is_active == True).all()
+    forecasts_created = 0
+
+    for product in products:
+        recent_sales = (
+            db.query(Sale)
+            .filter(Sale.product_id == product.id)
+            .order_by(Sale.date.desc())
+            .limit(90)
+            .all()
+        )
+        quantities = [sale.quantity_sold for sale in recent_sales]
+        avg_demand = sum(quantities) / len(quantities) if quantities else 1.0
+        variance = (
+            sum((qty - avg_demand) ** 2 for qty in quantities) / len(quantities)
+            if quantities else 0
+        )
+        std_demand = variance ** 0.5
+
+        db.query(Prediction).filter(
+            Prediction.product_id == product.id,
+            Prediction.forecast_date >= date.today(),
+        ).delete()
+
+        for offset in range(1, settings.FORECAST_HORIZON_DAYS + 1):
+            forecast_date = date.today() + timedelta(days=offset)
+            weekend_multiplier = 1.15 if forecast_date.weekday() >= 5 else 1.0
+            predicted = max(0, avg_demand * weekend_multiplier)
+
+            db.add(Prediction(
+                product_id=product.id,
+                forecast_date=forecast_date,
+                predicted_demand=round(predicted, 2),
+                lower_bound=round(max(0, predicted - 1.96 * std_demand), 2),
+                upper_bound=round(predicted + 1.96 * std_demand, 2),
+                model_name="demo_forecast",
+                model_version="1.0",
+            ))
+            forecasts_created += 1
+
+    db.commit()
+
+    logger.info("Running inventory optimization...")
+    optimizer = InventoryOptimizer(
+        service_level=settings.DEFAULT_SERVICE_LEVEL,
+        lookback_days=90,
+    )
+    metrics = optimizer.optimize_all()
+
+    return {
+        "message": "Demo data seeded successfully.",
+        "products": len(products),
+        "forecasts_created": forecasts_created,
+        "inventory_records_updated": len(metrics),
+    }
